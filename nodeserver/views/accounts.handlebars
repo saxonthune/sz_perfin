@@ -1,0 +1,47 @@
+<a href="/">back to root</a>
+
+<br>
+<h1>Accounts</h1>
+<table id="table" border=1>
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>Name</td>
+			<td>Type</td>
+			<td>Balance</td>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each data}}
+		<tr>
+			<td>{{ID}}</td>
+			<td> <a href="/accounts/{{ID}}">{{Name}}</a> </td>
+			<td>{{Type}}</td>
+			<td>${{Balance}}</td>
+			<td><button > Add Transaction </button></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+	
+<br>
+<h2>Create New Account</h2>
+<fieldset> 
+	<form id="addRow" action="/accounts" method="post">
+	Account Name: <input type="text" name="name"><br>
+	Description: <input type="text" name="dscr"><br>
+	Opening Date: <input type="date" name="open_date"><br>
+	
+    Account Type: <select name="atype_id"><br>
+		{{#each atype}}
+		<option value="{{atype_id}}">{{name}}</option>
+		{{/each}}
+		</select><br>
+		
+	Balance: <input type="number" name="bal" placeholder='0.00'><br>
+	<p>Is this a credit account? In credit accounts, paying for goods increases the balance, and "paying off" the account sets the balance to $0.00. </p>
+	<input type="checkbox" name="credit" value=1> This account is a credit account.<br><br>
+	
+    <input type="submit" value="Submit">
+    </form>
+</fieldset>

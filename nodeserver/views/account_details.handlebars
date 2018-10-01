@@ -1,0 +1,49 @@
+<a href="/">back to root</a>
+<a href="/accounts"> back to accounts</a>
+
+<br>
+<h1>{{acct.0.name}}</h1>
+<p> Current Balance: ${{acct.0.bal}} </p>
+<h3>Transactions:</h3>
+<table id="table" border=1>
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>Date</td>
+			<td>Category</td>
+			<td>Amount</td>
+			<td>Memo</td>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each data}}
+		<tr>
+			<td>{{ID}}</td>
+			<td>{{Date}}</td>
+			<td>{{Category}}</td>
+			<td>{{Amount}}</td>
+			<td>{{Memo}}</td>
+			<td><button onclick=tran_delete({{ID}})>Delete Transaction</button></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+	
+<br>
+<h2>Add Transaction to {{acct.0.name}}</h2>
+<fieldset> 
+	<form id="addRow" action="/accounts/{{acct.0.acct_id}}" method="post">
+	Date: <input type="date" name="tran_date"><br>
+
+	Category: <select name="tcat_id"><br>
+		<option value="">-- Select Category --</option>
+		{{#each tcat}}
+		<option value="{{tcat_id}}">{{name}}</option>
+		{{/each}}
+		</select><br>
+		
+	Amount: <input type="number" name="amt" step="0.01"><br>
+	Memo: <input type="text" name="memo"><br>
+    <input type="submit" value="Submit">
+    </form>
+</fieldset>

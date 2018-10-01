@@ -1,0 +1,29 @@
+<a href="/">back to root</a>
+
+<br>
+<h1>Transaction Categories</h1>
+<table id="table" border=1>
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>Name</td>
+	</thead>
+	<tbody>
+		{{#each data}}
+		<tr>
+			<td>{{ID}}</td>
+			<td>{{Name}}</td>
+			<td><button onclick=tcat_delete({{ID}})>Change Name</button></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+	
+<br>
+<h2>Create new category:</h2>
+<fieldset> 
+	<form id="addRow" action="/transaction-categories" method="post">
+	Name: <input type="text" name="name"><br>
+    <input type="submit" value="Submit">
+    </form>
+</fieldset>

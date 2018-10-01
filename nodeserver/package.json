@@ -1,0 +1,15 @@
+{
+  "name": "szPerFin",
+  "version": "0.1.0",
+  "description": "web-based personal finance system",
+  "private": true,
+  "main": "sz_perfin.js",
+  "author": "Saxon Thune",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.2",
+    "express-handlebars": "^3.0.0",
+    "mysql2": "^1.6.1"
+  }
+}

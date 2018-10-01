@@ -1,0 +1,52 @@
+<a href="/">back to root</a>
+
+<br>
+<h1>Transactions</h1>
+<table id="table" border=1>
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>Account</td>
+			<td>Category</td>
+			<td>Amount</td>
+			<td>Memo</td>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each data}}
+		<tr>
+			<td>{{ID}}</td>
+			<td>{{Account}}</td>
+			<td>{{Category}}</td>
+			<td>{{Amount}}</td>
+			<td>{{Memo}}</td>
+			<td><button onclick=tran_delete({{ID}})>Delete Transaction</button></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+	
+<br>
+<h2>Add New Transaction</h2>
+<fieldset> 
+	<form id="addRow" action="/transactions" method="post">
+	Date: <input type="date" name="tran_date"><br>
+	Account: <select name="acct_id"><br>
+		<option value="">-- Select Account --</option>
+		{{#each acct}}
+		<option value="{{acct_id}}">{{acct_id}} {{name}}</option>
+		{{/each}}
+		</select><br>
+
+	Category: <select name="tcat_id"><br>
+		<option value="">-- Select Category --</option>
+		{{#each tcat}}
+		<option value="{{tcat_id}}">{{name}}</option>
+		{{/each}}
+		</select><br>
+		
+	Amount: <input type="number" name="amt" step="0.01"><br>
+	Memo: <input type="text" name="memo"><br>
+    <input type="submit" value="Submit">
+    </form>
+</fieldset>
