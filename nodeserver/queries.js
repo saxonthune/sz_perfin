@@ -19,11 +19,19 @@ var tcat = {
 	dispAll : "SELECT tcat_id AS `ID`, name AS `Name` FROM tcat",  
 	insRow : "INSERT INTO tcat (name) VALUES (?)",
 	delRow : "DELETE FROM tcat WHERE tcat_id = ?",
-	updateRow : "UPDATE tcat SET name = ? WHERE tcat_id = ?"
+	updateRow : "UPDATE tcat SET name = ? WHERE tcat_id = ?",
+	getSingleByName : "SELECT * FROM tcat WHERE name = ?"
+};
+var snapshot = {
+	dispAll : "SELECT s.snapshot_id, s.snapshot_date, a.acct_id, a.name, s.bal_new, s.bal_old, s.bal_dif "+
+				"FROM snapshot s JOIN acct a ON s.acct_id = a.acct_id ORDER BY s.snapshot_id DESC",
+	acctNames : "SELECT acct_id, name FROM acct",
+	insRow : "INSERT INTO snapshot (snapshot_date, acct_id, bal_new, bal_old, bal_dif) VALUES (?,?,?,?,?)",
+	delRow : "DELETE FROM snapshot WHERE snapshot_id= ?"
 };
 
 module.exports.tran = tran;
 module.exports.acct = acct;
 module.exports.acct_details = acct_details;
 module.exports.tcat = tcat;
-
+module.exports.snapshot = snapshot;

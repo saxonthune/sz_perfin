@@ -23,15 +23,22 @@ module.exports = function() {
 	router.post('/', async function(req, res){
 
 		var mysql = req.app.get('mysql');
-		var query = queries.acct.insRow;
 
-		console.log(req.body.credit);
-		if (req.body.credit != 1)
+	
+		if (req.body.credit != 1) //convert undefined to 0 if necessary
 			req.body.credit = 0;
-		var inserts = [req.body.atype_id, req.body.name, req.body.open_date, req.body.dscr, req.body.bal, req.body.credit];
+		var inserts = [req.body.atype_id, req.body.name, req.body.open_date, req.body.dscr, 0, req.body.credit];
 		var context = {};
 		
-		await helpers.dbQuery(res, mysql, context, "acct", query, inserts);
+		await Promise.all([
+			helpers.dbQuery(res, mysql, context, "acct", queries.acct.insRow, inserts),
+			helpers.dbQuery(res, mysql, context, "tcat", queries.tcat.getSingleByName, "System")
+		]);
+		
+		var tran_inserts = [context.acct.insertId, context.tcat[0].tcat_id, 
+				req.body.open_date, req.body.bal*-1, "Account Initialization"];
+		await helpers.postTran(req, res, tran_inserts); 
+
 		res.redirect('/accounts');
 	});
 
@@ -48,12 +55,14 @@ module.exports = function() {
 			helpers.dbQuery(res, mysql, context, "data", queries.acct_details.dispAll, acct_id),
 			helpers.dbQuery(res, mysql, context, "tcat", "SELECT tcat_id, name FROM tcat ORDER BY name")
 		]);
+
 		res.render('account_details', context);
 	});
 
 	// adds transaction to account associated with id
 	router.post('/:id', async function(req, res){
-		await helpers.postTran(req, res, req.params.id);
+		inserts = [req.params.id, req.body.tcat_id, req.body.tran_date, req.body.amt, req.body.memo];
+		await helpers.postTran(req, res, inserts);
 		res.redirect("/accounts/"+req.params.id);
 	});
 	

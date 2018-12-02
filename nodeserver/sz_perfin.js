@@ -19,6 +19,7 @@ app.use('/', require('./root.js'));
 app.use('/accounts', require('./acct.js'));
 app.use('/transactions', require('./tran.js'));
 app.use('/transaction-categories', require('./tcat.js'));
+app.use('/snapshots', require('./snapshot.js'));
 
 app.use(function(req,res){
 	res.status(404);

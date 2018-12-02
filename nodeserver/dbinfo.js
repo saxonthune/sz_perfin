@@ -5,6 +5,7 @@ var pool = mysql.createPool({
   user            : 'perfin_user',
   password        : 'perfin_password',
   database        : 'sz_perfin',
+  dateStrings	  : true,
 });
 
 module.exports.pool = pool;

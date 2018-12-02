@@ -24,8 +24,8 @@ module.exports = function() {
 	//add transaction
 	router.post('/', async function(req, res){
 
-		console.log(req);
-		await helpers.postTran(req, res);
+		inserts = [req.body.acct_id, req.body.tcat_id, req.body.tran_date, req.body.amt, req.body.memo];
+		await helpers.postTran(req, res, inserts);
 		res.redirect('/transactions');
 	});
 		

@@ -1,0 +1,45 @@
+<a href="/">back to root</a>
+
+<br>
+<h1>Account Snapshots</h1>
+<p> Account snapshots are a way to audit accounts and correct differences between the app and real world account balances. </p>
+<table id="table" border=1>
+	<thead>
+		<tr>
+			<td>ID</td>
+			<td>Date</td>
+			<td>Account Name</td>
+			<td>New Balance</td>
+			<td>Old Balance</td>
+			<td>Difference</td>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each data}}
+		<tr>
+			<td>{{snapshot_id}}</td>
+			<td>{{snapshot_date}}</td>
+			<td><a href=/accounts/{{acct_id}}>{{name}}</a></td>
+			<td>${{bal_new}}</td>
+			<td>${{bal_old}}</td>
+			<td>${{bal_dif}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+	
+<br>
+<h2>Create Snapshot</h2>
+<fieldset> 
+	<form id="addSnapshot" action="/snapshots" method="post">
+	Account: <select name="acct_id"><br>
+		{{#each acct}}
+		<option value="{{acct_id}}">{{name}}</option>
+		{{/each}}
+	</select>
+	<br>
+
+	New Account Balance: <input type="number" name="bal_new" step="0.01"><br>
+    <input type="submit" value="Submit">
+    </form>
+</fieldset>
